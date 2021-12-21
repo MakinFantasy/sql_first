@@ -1,0 +1,30 @@
+CREATE DATABASE music;
+ALTER DATABASE music OWNER TO roxy;
+
+CREATE TABLE IF NOT EXISTS music_genre(id SERIAL PRIMARY KEY, name CHARACTER VARYING(40));
+CREATE TABLE IF NOT EXISTS artists(id SERIAL PRIMARY KEY, name CHARACTER VARYING(40), genre_id INTEGER REFERENCES music_genre(Id));
+CREATE TABLE IF NOT EXISTS albums(id SERIAL PRIMARY KEY, artists_id INTEGER REFERENCES artists(Id), name CHARACTER VARYING(40), year INTEGER);
+CREATE TABLE IF NOT EXISTS songs(id SERIAL PRIMARY KEY, album_id INTEGER REFERENCES albums(Id),  name CHARACTER VARYING(40), s_dur NUMERIC);
+
+
+INSERT INTO music_genre(id, name)
+VALUES
+(1, 'Power-metal'),
+(2, 'Alternative');
+
+INSERT INTO atrists(id, name, genre_id)
+VALUES
+(1, 'Pytokinesis', 2),
+(2, 'Sabaton', 1);
+
+INSERT INTO albums(id, artists_id, name, year)
+VALUES
+(1, 1, 'Моя милая пустота', 2019),
+(2, 2, 'The Great War', 2019);
+
+INSERT INTO songs(id, album_id, name, s_dur)
+VALUES 
+(1, 2, 'The Attack of the Dead Man', 3.56),
+(2, 1, 'Черное солнышко', 3.21),
+(3, 2, 'The Great War', 3.17),
+(4, 1, 'Цветами радуги', 4.00);
