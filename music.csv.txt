@@ -28,3 +28,35 @@ VALUES
 (2, 1, 'Черное солнышко', 3.21),
 (3, 2, 'The Great War', 3.17),
 (4, 1, 'Цветами радуги', 4.00);
+
+CREATE TABLE IF NOT EXISTS collection(
+	id SERIAL PRIMARY KEY,
+	Name CHARACTER VARYING(80) NOT NULL,
+	Year INTEGER NOT NULL
+);
+
+#INSERT DATA FOR collections
+
+CREATE TABLE IF NOT EXISTS genre_artist(
+	id SERIAL PRIMARY KEY,
+	genre_id INTEGER NOT NULL REFERENCES music_genre(id),
+	artist_id INTEGER NOT NULL REFERENCES artists(id)
+);
+
+#INSERT DATA FOR genre_artist
+
+CREATE TABLE IF NOT EXISTS artist_album(
+	id SERIAL PRIMARY KEY,
+	artist_id INTEGER NOT NULL REFERENCES artists(id),
+	album_id INTEGER NOT NULL REFERENCES album(id)
+);
+
+#INSERT DATA FOR artist_album
+
+CREATE TABLE IF NOT EXISTS song_collection(
+	id SERILA PRIMARY KEY,
+	song_id INTEGER NOT NULL REFERENCES songs(id),
+	collection_id INTEGER NOT NULL REFERENCES collection(id),
+);
+
+#INSERT DATA FOR song_collection
